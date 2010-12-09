@@ -1,3 +1,13 @@
+2010-12-09 1.0000
+ - Now requires Digest::HMAC_SHA1.
+ - No longer requires DateTime.
+ - Switched to the v0.2 chat API.
+ 
+ NOTE: This version is not backward compatible with the previous version. That's
+ the reason for the big version number increase. All client_ip related methods
+ and params have been removed due to changes in the API.
+
+
 2010-10-26 0.0100
  - Initial public release.
 

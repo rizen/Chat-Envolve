@@ -4,9 +4,8 @@ package Chat::Envolve;
 
 use Moose;
 use MIME::Base64 qw(encode_base64);
-use Digest::SHA qw(sha1_hex);
+use Digest::HMAC_SHA1 qw(hmac_sha1_hex);
 use Encode qw(encode);
-use DateTime;
 
 has api_key => (
     is          => 'ro',
@@ -26,11 +25,6 @@ has secret  => (
 
 has site_id => (
     is          => 'rw',
-);
-
-has client_ip => (
-    is          => 'rw',
-    required    => 1,
 );
 
 sub get_tags {
@@ -66,24 +60,19 @@ sub get_logout_command {
 
 sub generate_command_string {
     my ($self, $command, %params) = @_;
-    my $now = DateTime->now;
-    my $command_string = $self->client_ip
-        .';'.$now->year
-        .';'.($now->month - 1)
-        .';'.($now->day)
-        .';v=0.1'
+    my $command_string = (time() * 1000)
+        .';v=0.2'
         .',c='.$command;
     foreach my $key (keys %params) {
         $command_string .= ',' . $key . '=' . encode_base64(encode("UTF-8",$params{$key}));
         chomp $command_string;
-        $command_string .= '==';
     }
     return $command_string;
 }
 
 sub sign_command_string {
     my ($self, $command_string) = @_;
-    my $hash = sha1_hex( $command_string . $self->secret);
+    my $hash = hmac_sha1_hex( $command_string . $self->secret);
     return $hash . ';' . $command_string;
 }
 
@@ -99,7 +88,6 @@ Chat::Envolve - A Perl API for the Envolve web chat system.
 
  my $chat = Chat::Envolve->new(
     api_key     => $key,
-    client_ip   => $user_ip_address,
  );
  
  my $html = $chat->get_tags('Joe');
@@ -112,7 +100,7 @@ This is a Perl API for the Envolve L<http://www.envolve.com> chat system. If you
 
 =head1 METHODS
 
-=head2 new ( api_key => '111-xxx', client_ip => '127.0.0.1' )
+=head2 new ( api_key => '111-xxx' )
 
 Constructor. Requires both params.
 
@@ -121,10 +109,6 @@ Constructor. Requires both params.
 =item api_key
 
 The API key provided by Envolve.
-
-=item client_ip
-
-The IP address of the user. Usually REMOTE_ADDR in HTTP environment variables. Can also be set to C<none> to disable IP security checking.
 
 =back
 
@@ -195,17 +179,6 @@ See C<get_login_command>
 =back
 
 
-=head2 client_ip ( ip_address )
-
-Normally you wouldn't ever need to use this command, but if you wanted to use the same Chat::Envolve object to log in more than one user then you could set the IP for each user by using this command.
-
-=over
-
-=item ip_address
-
-An IP address.
-
-=back
 
 
 =head1 EXCEPTIONS
@@ -221,9 +194,8 @@ Nothing is planned until Envolve releases more functionality.
 =head1 PREREQS
 
 L<Moose>
-L<DateTime>
 L<MIME::Base64>
-L<Digest::SHA>
+L<Digest::HMAC_SHA1>
 L<Encode>
 
 
