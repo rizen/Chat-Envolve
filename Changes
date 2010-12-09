@@ -1,3 +1,6 @@
+2010-12-09 1.0001
+ - Fixed an HMAC signing issue.
+
 2010-12-09 1.0000
  - Now requires Digest::HMAC_SHA1.
  - No longer requires DateTime.

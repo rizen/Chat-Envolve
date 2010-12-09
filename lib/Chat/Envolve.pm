@@ -72,7 +72,7 @@ sub generate_command_string {
 
 sub sign_command_string {
     my ($self, $command_string) = @_;
-    my $hash = hmac_sha1_hex( $command_string . $self->secret);
+    my $hash = hmac_sha1_hex( $command_string, $self->secret);
     return $hash . ';' . $command_string;
 }
 
