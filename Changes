@@ -1,3 +1,6 @@
+2010-12-16 1.0002
+ - Forgot to remove DateTime reference in chat.t.
+
 2010-12-09 1.0001
  - Fixed an HMAC signing issue.
 

@@ -1,6 +1,5 @@
 use Test::More tests => 7;
 use lib '../lib';
-use DateTime;
 
 use_ok( 'Chat::Envolve' );
 
