@@ -1,3 +1,6 @@
+2010-12-23 1.0003
+ - Fixed admin mode flag.
+
 2010-12-16 1.0002
  - Forgot to remove DateTime reference in chat.t.
 

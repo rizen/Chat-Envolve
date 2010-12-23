@@ -64,7 +64,8 @@ sub generate_command_string {
         .';v=0.2'
         .',c='.$command;
     foreach my $key (keys %params) {
-        $command_string .= ',' . $key . '=' . encode_base64(encode("UTF-8",$params{$key}));
+        my $value = ($key eq 'admin') ? $params{$key} : encode_base64(encode("UTF-8",$params{$key}));
+        $command_string .= ',' . $key . '=' . $value; 
         chomp $command_string;
     }
     return $command_string;
