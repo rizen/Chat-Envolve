@@ -1,3 +1,6 @@
+2011-05-06 1.0006
+ - Fixed get_tags() to support multi-line javascript, which can be generated for the Envolve command.
+
 2011-05-06 1.0005
  - Switched to Any::Moose rather than Moose.
 
