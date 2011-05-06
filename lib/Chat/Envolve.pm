@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Chat::Envolve;
 
-use Moose;
+use Any::Moose;
 use MIME::Base64 qw(encode_base64);
 use Digest::HMAC_SHA1 qw(hmac_sha1_hex);
 use Encode qw(encode);
@@ -77,7 +77,7 @@ sub sign_command_string {
     return $hash . ';' . $command_string;
 }
 
-no Moose;
+no Any::Moose;
 __PACKAGE__->meta->make_immutable;
 
 
