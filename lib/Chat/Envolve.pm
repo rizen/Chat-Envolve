@@ -30,7 +30,6 @@ has site_id => (
 sub get_tags {
     my ($self, $first_name, %options) = @_;
     my $command = ($first_name) ? $self->get_login_command($first_name, %options) : $self->get_logout_command;
-    $command = s{\n}{\n\\}xmsg; # fix multi-line base 64 encoding to make it JS safe
     my $html = q{
 <script type="text/javascript">
     envoSn=%s;
