@@ -1,3 +1,7 @@
+2011-05-06 1.0007
+ - Last release didn't fix the problem the right way.
+ - Now require at least MIME::Base64 3.11.
+
 2011-05-06 1.0006
  - Fixed get_tags() to support multi-line javascript, which can be generated for the Envolve command.
 

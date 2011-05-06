@@ -3,7 +3,7 @@ use warnings;
 package Chat::Envolve;
 
 use Any::Moose;
-use MIME::Base64 qw(encode_base64);
+use MIME::Base64 qw(encode_base64url);
 use Digest::HMAC_SHA1 qw(hmac_sha1_hex);
 use Encode qw(encode);
 
@@ -65,7 +65,7 @@ sub generate_command_string {
         .';v=0.2'
         .',c='.$command;
     foreach my $key (keys %params) {
-        my $value = ($key eq 'admin') ? $params{$key} : encode_base64(encode("UTF-8",$params{$key}));
+        my $value = ($key eq 'admin') ? $params{$key} : encode_base64url(encode("UTF-8",$params{$key}));
         $command_string .= ',' . $key . '=' . $value; 
         chomp $command_string;
     }

@@ -14,6 +14,6 @@ is($chat->secret, 'abcdefghijklmnopqrstuvwxyz', 'set secret');
 
 is($chat->sign_command_string('test'), '9dc1df7fb6ca106d68f7d3f109b1be118f9c4827;test', 'signature works');
 my $date = time() * 1000;
-like($chat->generate_command_string('login', fn=>'JT'), qr/\d+;v=0.2,c=login,fn=SlQ=/, 'generate command string works');
+like($chat->generate_command_string('login', fn=>'JT'), qr/\d+;v=0.2,c=login,fn=SlQ/, 'generate command string works');
 
 
